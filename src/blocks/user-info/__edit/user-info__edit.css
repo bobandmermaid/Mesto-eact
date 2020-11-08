@@ -1,0 +1,27 @@
+.user-info__edit {
+  margin: 24px 0 51px 0;
+  padding: 1px 7px;
+  font-size: 12px;
+  line-height: 15px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  display: block;
+  cursor: pointer;
+}
+
+.user-info__edit:focus {
+  outline-color: greenyellow;
+}
+
+.user-info__edit:hover {
+  background-color: white;
+  color: black;
+}
+
+@media screen and (max-width: 980px) {
+  .user-info__edit {
+    max-width: 40px;
+    align-self: center;
+  }
+}
