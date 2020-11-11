@@ -12,6 +12,7 @@ import { CurrentUserContext } from '../contexts/CurentUserContext'
 function App() {
 
   const [cards, setCards] = React.useState([]);
+  // const [cardDelete, setDeleteCard] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -66,6 +67,66 @@ function App() {
       .catch(err => console.log(err));
   }, [])
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    if(!isLiked) {
+      api.setLikeCard(card._id)
+        .then((newCard) => {
+          // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+          const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+          // Обновляем стейт
+          setCards(newCards);
+        })
+        .catch(err => console.log(err))
+    } else {
+      api.unLikeCard(card._id)
+        .then((newCard) => {
+          const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+          setCards(newCards);
+        })
+        .catch(err => console.log(err))
+    }
+  }
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then(() => {
+        const cardNew = cards.filter((c) => c._id !== card._id)
+        setCards(cardNew)
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
+  }
+
+  function handleUpdateUser(data) {
+    api.updateUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res)
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
+  }
+
+  function handleUpdateAvatar(data) {
+    api.addNewAvatar(data)
+      .then((res) => {
+        setCurrentUser(res)
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
+  }
+
+  function handleAddPlaceSubmit(data) {
+    api.addCardPage(data)
+      .then((newCard) => {
+        setCards([...cards, newCard]);
+        closeAllPopups()
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <div className="App">
       <div className="root">
@@ -73,6 +134,8 @@ function App() {
         <Header/>
         <Main
           cards={ cards }
+          onCardDelete={handleCardDelete}
+          onCardLike={handleCardLike}
           onCardClick={handleCardClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
@@ -81,14 +144,17 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <ImagePopup
           card={selectedCard}

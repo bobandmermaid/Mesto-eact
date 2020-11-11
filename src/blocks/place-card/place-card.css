@@ -5,10 +5,12 @@
 @import url(__like-icon/place-card__like-icon.css);
 @import url(__like-container/place-card__like-container.css);
 @import url(__like-counter/place-card__like-counter.css);
+@import url(__delete-icon/_visible/place-card__delete-icon_visible.css);
 
 .place-card {
   width: 282px;
   background-color: #fff;
   border-radius: 10px;
   min-height: 360px;
+  position: relative;
 }
