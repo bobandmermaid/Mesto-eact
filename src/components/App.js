@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 import Main from './Main';
 import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
-import Preloader from './Preloader';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurentUserContext'
 
@@ -62,7 +62,7 @@ function App() {
   React.useEffect(() => {
     api.getInitialCards()
       .then((data) => {
-        setCards(data);
+        setCards(data.reverse().splice(0, 50));
       })
       .catch(err => console.log(err));
   }, [])
@@ -121,7 +121,7 @@ function App() {
   function handleAddPlaceSubmit(data) {
     api.addCardPage(data)
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
         closeAllPopups()
       })
       .catch(err => console.log(err))
@@ -131,7 +131,7 @@ function App() {
     <div className="App">
       <div className="root">
       <CurrentUserContext.Provider value={ currentUser }>
-        <Header/>
+        <Header />
         <Main
           cards={ cards }
           onCardDelete={handleCardDelete}
@@ -141,6 +141,7 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
         />
+        <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -160,7 +161,6 @@ function App() {
           card={selectedCard}
           onClose={closeAllPopups}
         />
-        <Preloader/>
       </CurrentUserContext.Provider>
       </div>
     </div>
