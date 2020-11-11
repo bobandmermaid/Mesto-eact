@@ -22,8 +22,11 @@ function Main(props) {
       <div className="places-list root__section">
         {props.cards.map((item) => (
           <Card
-            onCardClick={ props.onCardClick }
+            key={ item._id }
             card={ item }
+            onCardDelete={ props.onCardDelete }
+            onCardClick={ props.onCardClick }
+            onCardLike={ props.onCardLike }
           />
           ))}
       </div>

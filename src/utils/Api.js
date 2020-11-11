@@ -14,14 +14,11 @@ class Api {
         this._getResponseData(res));
   }
 
-  addCardPage = (name, link) => {
+  addCardPage = (card) => {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: this.headers,
-      body: JSON.stringify({
-        name: name.value,
-        link: link.value
-      })
+      body: JSON.stringify(card)
     })
       .then(res =>
         this._getResponseData(res));
@@ -35,14 +32,11 @@ class Api {
         this._getResponseData(res));
   }
 
-  updateUserInfo = (name, about) => {
+  updateUserInfo = (data) => {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({
-        name: name,
-        about: about
-      })
+      body: JSON.stringify(data)
     })
       .then(res =>
         this._getResponseData(res));
@@ -75,13 +69,11 @@ class Api {
         this._getResponseData(res));
   }
 
-  addNewAvatar = link => {
+  addNewAvatar = avatar => {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify({
-        avatar: link.value
-      })
+      body: JSON.stringify(avatar)
     })
       .then(res =>
         this._getResponseData(res));
