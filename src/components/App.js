@@ -62,7 +62,7 @@ function App() {
   React.useEffect(() => {
     api.getInitialCards()
       .then((data) => {
-        setCards(data.slice(0, 50));
+        setCards(data.reverse().splice(0, 50));
       })
       .catch(err => console.log(err));
   }, [])
@@ -121,7 +121,7 @@ function App() {
   function handleAddPlaceSubmit(data) {
     api.addCardPage(data)
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
         closeAllPopups()
       })
       .catch(err => console.log(err))
