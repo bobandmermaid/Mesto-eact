@@ -3,11 +3,13 @@
   top: 16px;
   right: 0;
   font-size: 30px;
+  transition: transform .3s linear;
 }
 
 .user-info__button:hover {
-  background-color: white;
-  color: black;
+  /*background-color: white;*/
+  /*color: black;*/
+  transform: scale(1.03);
 }
 
 @media screen and (max-width: 980px) {

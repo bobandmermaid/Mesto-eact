@@ -1,13 +1,9 @@
 .preloader {
-  display: none;
+  display: block;
   position: relative;
   width: 80px;
   height: 80px;
   margin: auto;
-}
-
-.preloader_visible {
-  display: block;
 }
 
 .preloader div {
@@ -17,10 +13,10 @@
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 3px solid #ffffff;
+  border: 3px solid #fff;
   border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #ffffff transparent transparent transparent;
+  animation: preloader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
 }
 
 .preloader div:nth-child(1) {
@@ -31,11 +27,11 @@
   animation-delay: -0.3s;
 }
 
-.lds-ring div:nth-child(3) {
+.preloader div:nth-child(3) {
   animation-delay: -0.15s;
 }
 
-@keyframes lds-ring {
+@keyframes preloader {
   0% {
     transform: rotate(0deg);
   }

@@ -11,6 +11,12 @@
   right: 15px;
   cursor: pointer;
   display: none;
+  outline: none;
+  transition: transform .3s linear;
+}
+
+.place-card__delete-icon:hover {
+  transform: scale(1.13);
 }
 
 /*.place-card:hover .place-card__delete-icon {*/
