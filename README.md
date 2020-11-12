@@ -20,6 +20,7 @@
 `BEM`  
 
 ### Посмотреть 
++ https://bobandmermaid.github.io/mesto-react    
 + Оригинальная версия проекта на чистом JS - https://github.com/bobandmermaid/Mesto
 
 ### Разворачивание проекта
