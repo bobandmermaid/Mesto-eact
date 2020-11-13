@@ -12,7 +12,6 @@ import { CurrentUserContext } from '../contexts/CurentUserContext'
 function App() {
 
   const [cards, setCards] = React.useState([]);
-  // const [cardDelete, setDeleteCard] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -52,20 +51,13 @@ function App() {
   }
 
   React.useEffect(() => {
-    api.getUsersInfo()
-      .then((data) => {
-        setCurrentUser(data);
+    Promise.all([api.getUsersInfo(), api.getInitialCards()])
+      .then(([user, cards]) => {
+        setCurrentUser(user);
+        setCards(cards.reverse());
       })
       .catch(err => console.log(err));
-  }, [])
-
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then((data) => {
-        setCards(data.reverse().splice(0, 50));
-      })
-      .catch(err => console.log(err));
-  }, [])
+  }, []);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке

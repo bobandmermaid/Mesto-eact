@@ -1,9 +1,15 @@
 import React from 'react';
-import { CurrentUserContext } from '../contexts/CurentUserContext';
 import Card from './Card';
-
+import { CurrentUserContext } from '../contexts/CurentUserContext';
+// import { SemipolarLoading } from 'react-loadingg';
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  // if(!currentUser) {
+  //   return (
+  //     <SemipolarLoading color="#fff" />
+  //   )
+  // }
 
   return (
     <>
@@ -20,7 +26,7 @@ function Main(props) {
         </div>
       </div>
       <div className="places-list root__section">
-        {props.cards.map((item) => (
+        {props.cards.slice(0, 50).map((item) => (
           <Card
             key={ item._id }
             card={ item }
