@@ -18,7 +18,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     isOpen: false,
-    link: ''
+    link: '',
+    name: ''
   });
 
   function handleAddPlaceClick() {
@@ -33,10 +34,11 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function handleCardClick(link) {
+  function handleCardClick(link, name) {
     setSelectedCard({
       isOpen: true,
-      link: link
+      link: link,
+      name: name
     });
   }
 
@@ -46,7 +48,8 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({
       isOpen: false,
-      link: ''
+      link: '',
+      name: ''
     })
   }
 
@@ -60,15 +63,12 @@ function App() {
   }, []);
 
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     if(!isLiked) {
       api.setLikeCard(card._id)
         .then((newCard) => {
-          // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
           const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-          // Обновляем стейт
           setCards(newCards);
         })
         .catch(err => console.log(err))

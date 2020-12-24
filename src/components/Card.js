@@ -16,7 +16,7 @@ function Card(props) {
   );
 
   function handleClick() {
-    props.onCardClick(card.link);
+    props.onCardClick(card.link, card.name);
   }
 
   function handleLikeClick() {
